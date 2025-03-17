@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomBot - 서비스 약관</title>
+    <style>
+        /* 폰트 설정 */
+        @font-face {
+            font-family: 'PyeongChangPeace-Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SBAggroB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        :root {
+            --primary: #5865F2;
+            --primary-dark: #4752c4;
+            --secondary: #EB459E;
+            --dark: #2C2F33;
+            --darker: #23272A;
+            --light: #FFFFFF;
+            --light-gray: #F6F6F6;
+            --success: #57F287;
+            --warning: #FEE75C;
+            --danger: #ED4245;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: 'SBAggroB', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'PyeongChangPeace-Bold', sans-serif;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--secondary);
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* 헤더 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(35, 39, 42, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover img {
+            transform: rotate(10deg);
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav a {
+            color: var(--light);
+            font-weight: bold;
+            position: relative;
+            padding: 0.5rem 0;
+            align-items: center;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+        
+        .cta-btn:hover {
+            color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.6);
+        }
+        
+        /* 페이지 헤더 */
+        .page-header {
+            position: relative;
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSI+PC9jaXJjbGU+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIj48L3JlY3Q+PC9zdmc+');
+            opacity: 0.5;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* 메인 콘텐츠 */
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(88, 101, 242, 0.05), transparent 30%),
+                        radial-gradient(circle at 90% 90%, rgba(235, 69, 158, 0.05), transparent 30%);
+            pointer-events: none;
+        }
+        
+        .content-wrapper {
+            background-color: rgba(35, 39, 42, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content-wrapper h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .content-wrapper h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .content-wrapper ul {
+            list-style-type: disc;
+        }
+        
+        .content-wrapper ol {
+            list-style-type: decimal;
+        }
+        
+        .date-info {
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: rgba(88, 101, 242, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* 내비게이션 목차 */
+        .toc {
+            position: sticky;
+            top: 100px;
+            background-color: rgba(35, 39, 42, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .toc h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+        
+        .toc-list a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .toc-list a:hover {
+            color: var(--light);
+            transform: translateX(5px);
+        }
+        
+        .toc-list a::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .toc-list a:hover::before {
+            background-color: var(--secondary);
+            transform: scale(1.5);
+        }
+        
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        /* 푸터 */
+        footer {
+            background-color: var(--darker);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light);
+        }
+        
+        .footer-bottom {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* 반응형 디자인 */
+        @media screen and (max-width: 992px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc {
+                position: relative;
+                top: 0;
+            }
+            
+            .page-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--darker);
+                width: 80%;
+                height: 100vh;
+                padding: 2rem;
+                z-index: 100;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                transition: right 0.5s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .burger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .burger.active div:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .burger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .page-header h2 {
+                font-size: 2rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .content-wrapper {
+                padding: 30px 20px;
+            }
+            
+            .content-wrapper h2 {
+                font-size: 1.8rem;
+            }
+            
+            .content-wrapper h3 {
+                font-size: 1.3rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 576px) {
+            .page-header {
+                padding: 120px 0 60px;
+            }
+            
+            .page-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-container">
+            <a href="http://custombot.kro.kr" class="logo">
+                <h1>커스텀봇</h1>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="http://custombot.kro.kr#features">기능</a></li>
+                    <li><a href="http://custombot.kro.kr#commands">명령어</a></li>
+                    <li><a href="http://custombot.kro.kr#how-to-use">사용 방법</a></li>
+                    <li><a href="http://custombot.kro.kr/support">문의하기</a></li>
+                    <li><a href="http://custombot.kro.kr/invite" class="cta-btn">초대하기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h2>서비스 약관</h2>
+            <p>커스텀봇 서비스 이용에 적용되는 약관이에요. 서비스를 이용하기 전에 주의 깊게 읽어주세요!</p>
+        </div>
+    </section>
+
+    <!-- 메인 콘텐츠 -->
+    <section class="content-section">
+        <div class="container">
+            <div class="toc-grid">
+                <div class="toc">
+                    <h3>목차</h3>
+                    <ul class="toc-list">
+                        <li><a href="#intro">서비스 약관 소개</a></li>
+                        <li><a href="#acceptance">약관 동의</a></li>
+                        <li><a href="#service-usage">서비스 이용 조건</a></li>
+                        <li><a href="#user-obligations">사용자 의무와 책임</a></li>
+                        <li><a href="#service-changes">서비스 변경 및 중단</a></li>
+                        <li><a href="#intellectual-property">지적 재산권</a></li>
+                        <li><a href="#limitation">책임의 제한</a></li>
+                        <li><a href="#agreement-changes">약관 변경</a></li>
+                        <li><a href="#dispute">분쟁 해결</a></li>
+                        <li><a href="#contact">연락처 정보</a></li>
+                    </ul>
+                </div>
+                
+                <div class="content-main">
+                    <div class="content-wrapper">
+                        <div class="date-info">
+                            최종 업데이트: 2025년 3월 15일
+                        </div>
+                        
+                        <section id="intro">
+                            <h2>1. 서비스 약관 소개</h2>
+                            <p>이 서비스 약관("약관")은 커스텀봇("우리", "당사")이 제공하는 디스코드 봇 서비스("서비스")의 이용에 관한 조건과 규칙을 설명합니다. 이 약관은 사용자("귀하")와 커스텀봇 간의 계약 관계를 정의합니다.</p>
+                            
+                            <p>커스텀봇은 디스코드 서버에서 다양한 커스텀 명령어를 쉽게 만들고 관리할 수 있도록 설계된 디스코드 봇 서비스입니다. 이 서비스에는 텍스트 응답, 역할 부여, 임베드 메시지, 조건부 명령어 등 다양한 기능이 포함됩니다.</p>
+                            
+                            <p>이 약관은 귀하가 당사의 서비스를 이용하는 동안 발생할 수 있는 모든 활동에 적용됩니다. 서비스를 이용하기 전에 이 약관을 주의 깊게 읽어주시기 바랍니다.</p>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="acceptance">
+                            <h2>2. 약관 동의</h2>
+                            <p>커스텀봇 을 디스코드 서버에 초대하거나, 서비스를 사용하는 경우, 귀하는 이 약관에 동의하는 것으로 간주됩니다. 이 약관에 동의하지 않는 경우, 서비스 이용을 중단해야 합니다.</p>
+                            
+                            <p>본 서비스는 만 13세 이상의 사용자만 이용할 수 있습니다. 만 13세 미만인 경우, 부모 또는 법적 보호자의 동의를 받아야 합니다. 서비스를 이용함으로써, 귀하는 이 연령 요건을 충족하거나 필요한 동의를 받았음을 확인합니다.</p>
+                            
+                            <div class="highlight-box">
+                                <p>중요: 커스텀봇을 디스코드 서버에 초대하거나 사용하면 본 약관에 자동으로 동의하게 됩니다. 서비스를 계속 사용하기 전에 이 약관을 숙지하시기 바랍니다.</p>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="service-usage">
+                            <h2>3. 서비스 이용 조건</h2>
+                            <p>커스텀봇 서비스 이용에는 다음과 같은 조건이 적용됩니다:</p>
+                            
+                            <h3>3.1 서비스 접근</h3>
+                            <p>커스텀봇을 이용하기 위해서는 디스코드 계정이 필요합니다. 서비스를 이용하려면 봇을 디스코드 서버에 초대해야 하며, 이를 위해 필요한 권한을 부여해야 합니다.</p>
+                            
+                            <h3>3.2 무료 이용</h3>
+                            <p>현재 커스텀봇 은 모든 사용자에게 무료로 제공됩니다. 당사는 언제든지 유료 서비스 또는 프리미엄 기능을 도입할 권리를 보유하며, 이러한 변경 사항은 적절한 시기에 공지될 것입니다.</p>
+                            
+                            <h3>3.3 금지된 사용</h3>
+                            <p>다음과 같은 방식으로 서비스를 이용하는 것은 금지됩니다:</p>
+                            <ul>
+                                <li>불법적인 활동 또는 불법적인 목적으로 사용</li>
+                                <li>타인의 권리를 침해하거나 해를 끼치는 방식으로 사용</li>
+                                <li>디스코드 이용 약관 또는 커뮤니티 가이드라인을 위반하는 방식으로 사용</li>
+                                <li>서비스의 정상적인 작동을 방해하거나 과도한 부하를 주는 방식으로 사용</li>
+                                <li>서비스나 관련 시스템 또는 네트워크의 취약성을 탐색, 스캔, 테스트하는 행위</li>
+                                <li>혐오 표현, 차별, 폭력, 성인 콘텐츠, 괴롭힘 또는 기타 불쾌한 콘텐츠를 생성하거나 배포하는 데 사용</li>
+                            </ul>
+                            
+                            <h3>3.4 디스코드 정책</h3>
+                            <p> 커스텀봇을 사용할 때는 디스코드의 <a href="https://discord.com/terms" target="_blank">이용 약관</a> 및 <a href="https://discord.com/guidelines" target="_blank">커뮤니티 가이드라인</a>을 준수해야 합니다. 이러한 정책을 위반하는 방식으로 서비스를 사용하는 경우, 서비스 이용이 제한되거나 중단될 수 있습니다.</p>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="user-obligations">
+                            <h2>4. 사용자 의무와 책임</h2>
+                            <p>커스텀봇 사용함에 있어 귀하는 다음과 같은 의무와 책임을 갖습니다:</p>
+                            
+                            <h3>4.1 적절한 사용</h3>
+                            <p>귀하는 커스텀봇을 적절하고 합법적인 방식으로만 사용해야 합니다. 봇을 통해 생성되고 관리되는 모든 콘텐츠와 명령어에 대한 책임은 귀하에게 있습니다.</p>
+                            
+                            <h3>4.2 보안</h3>
+                            <p>귀하는 디스코드 계정의 보안을 유지할 책임이 있습니다. 계정 침해로 인한 인증안됝 커스텀봇 사용에 대한 책임은 귀하에게 있습니다.</p>
+                            
+                            <h3>4.3 피드백</h3>
+                            <p>서비스에 관한 피드백이나 제안을 제공하는 경우, 당사는 이를 어떠한 제한이나 보상 의무 없이 자유롭게 사용할 수 있습니다.</p>
+                            
+                            <h3>4.4 개인정보</h3>
+                            <p>커스텀봇을 통해 수집하거나 처리하는 개인정보에 대해 적용되는 모든 개인정보 보호법을 준수할 책임이 있습니다.</p>
+                            
+                            <div class="highlight-box">
+                                <p>커스텀 명령어를 생성하고 관리할 때, 적절하고 책임감 있게 사용해주세요. 불쾌감을 주거나 부적절한 콘텐츠를 생성하는 명령어를 만들지 마십시오.</p>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="service-changes">
+                            <h2>5. 서비스 변경 및 중단</h2>
+                            <p>당사는 서비스의 품질과 기능을 개선하기 위해 지속적으로 노력하고 있습니다. 이에 따라 다음과 같은 권리를 보유합니다:</p>
+                            
+                            <h3>5.1 서비스 변경</h3>
+                            <p>당사는 언제든지 사전 통지 없이 서비스의 일부 또는 전체를 변경, 수정, 개선할 권리를 보유합니다. 이러한 변경에는 새로운 기능 추가, 기존 기능 수정 또는 제거가 포함될 수 있습니다.</p>
+                            
+                            <h3>5.2 서비스 중단</h3>
+                            <p>당사는 다음과 같은 상황에서 서비스를 일시적 또는 영구적으로 중단할 수 있습니다:</p>
+                            <ul>
+                                <li>정기 유지보수 또는 긴급 수리를 위한 일시적 중단</li>
+                                <li>불가항력적 상황(자연재해, 정전, 인터넷 서비스 중단 등)</li>
+                                <li>보안 위협이나 다른 위험 요소 발생 시</li>
+                                <li>법적 요구사항 준수를 위해 필요한 경우</li>
+                                <li>서비스 운영 중단 결정 시</li>
+                            </ul>
+                            
+                            <p>당사는 합리적으로 가능한 경우 서비스 중단 전에 사전 통지를 제공하기 위해 노력할 것이나, 모든 상황에서 이를 보장할 수는 없습니다.</p>
+                            
+                            <h3>5.3 서비스 제한</h3>
+                            <p>당사는 서비스 남용, 비정상적인 서버 부하, 또는 이 약관 위반이 의심되는 경우 특정 사용자 또는 서버에 대한 서비스 접근을 제한할 권리가 있습니다.</p>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="intellectual-property">
+                            <h2>6. 지적 재산권</h2>
+                            <p>커스텀봇 서비스와 관련된 지적 재산권은 다음과 같이 규정됩니다:</p>
+                            
+                            <h3>6.1 당사의 지적 재산권</h3>
+                            <p>서비스, 소프트웨어, 웹사이트, 로고, 이름 및 기타 관련 자료에 대한 모든 권리, 소유권 및 이익은 당사에 속합니다. 이러한 자료는 저작권, 상표권 및 기타 지적 재산권법에 의해 보호됩니다.</p>
+                            
+                            <h3>6.2 사용 허가</h3>
+                            <p>당사는 귀하에게 이 약관에 따라 개인적, 비상업적 목적으로 서비스를 사용할 수 있는 제한적, 비독점적, 양도 불가능한 라이선스를 부여합니다. 이 라이선스는 이 약관을 준수하는 한 유효하며, 약관 위반 시 자동으로 취소됩니다.</p>
+                            
+                            <h3>6.3 사용자 콘텐츠</h3>
+                            <p>귀하가 커스텀봇을 통해 생성한 커스텀 명령어, 응답 메시지 및 기타 콘텐츠("사용자 콘텐츠")에 대한 모든 권리는 귀하에게 있습니다. 그러나 귀하는 당사에 사용자 콘텐츠를 서비스 제공, 개선 및 홍보를 위해 사용, 복제, 수정, 배포할 수 있는 전 세계적, 비독점적, 무료, 양도 가능한 라이선스를 부여합니다.</p>
+                            
+                            <h3>6.4 제한 사항</h3>
+                            <p>귀하는 다음과 같은 행위를 할 수 없습니다:</p>
+                            <ul>
+                                <li>서비스 또는 관련 소프트웨어의 복제, 수정, 배포, 판매, 임대, 대여, 파생물 생성</li>
+                                <li>서비스 또는 관련 소프트웨어의 리버스 엔지니어링, 디컴파일, 디어셈블</li>
+                                <li>서비스와 관련된 저작권, 상표 또는 기타 소유권 고지 제거 또는 변경</li>
+                                <li>당사의 명시적 서면 동의 없이 상업적 목적으로 서비스 사용</li>
+                            </ul>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="limitation">
+                            <h2>7. 책임의 제한</h2>
+                            <p>당사는 최선의 서비스를 제공하기 위해 노력하지만, 다음과 같은 책임 제한이 적용됩니다:</p>
+                            
+                            <h3>7.1 서비스 제공</h3>
+                            <p>커스텀봇 서비스는 "있는 그대로"와 "이용 가능한 대로" 제공됩니다. 당사는 서비스의 정확성, 신뢰성, 적합성 또는 가용성에 관한 어떠한 보증이나 약속도 하지 않습니다.</p>
+                            
+                            <h3>7.2 책임 면책</h3>
+                            <p>법률이 허용하는 최대 범위 내에서, 당사는 다음 사항에 대해 책임을 지지 않습니다:</p>
+                            <ul>
+                                <li>서비스 사용 또는 사용 불능으로 인한 직접적, 간접적, 부수적, 특별, 결과적 손해</li>
+                                <li>데이터 손실, 수익 손실, 영업 중단 또는 기타 비즈니스 손실</li>
+                                <li>서비스를 통해 전송되거나 얻은 콘텐츠나 정보의 정확성, 합법성, 적절성</li>
+                                <li>제3자 웹사이트, 서비스 또는 리소스와의 상호작용으로 인한 손해</li>
+                                <li>서비스 중단, 오류, 버그 또는 보안 취약점으로 인한 손해</li>
+                            </ul>
+                            
+                            <h3>7.3 책임 한도</h3>
+                            <p>어떠한 경우에도, 당사의 총 책임 한도는 귀하가 당사에 지불한 서비스 이용 수수료(있는 경우)를 초과하지 않으며, 무료 서비스의 경우 10,000원을 초과하지 않습니다.</p>
+                            
+                            <h3>7.4 예외 사항</h3>
+                            <p>일부 국가나 지역에서는 묵시적 보증의 제외나 부수적 또는 결과적 손해에 대한 책임 제한을 허용하지 않으므로, 위의 제한이 귀하에게 적용되지 않을 수 있습니다.</p>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="agreement-changes">
+                            <h2>8. 약관 변경</h2>
+                            <p>당사는 필요에 따라 이 약관을 업데이트하고 수정할 권리를 보유합니다.</p>
+                            
+                            <h3>8.1 변경 사항 통지</h3>
+                            <p>약관에 중요한 변경이 있을 경우, 당사는 웹사이트 공지, 디스코드 서버 공지, 또는 기타 적절한 수단을 통해 변경 사항을 알릴 것입니다. 가능한 경우, 변경 사항이 적용되기 최소 14일 전에 미리 공지할 것입니다.</p>
+                            
+                            <h3>8.2 계속 사용</h3>
+                            <p>변경된 약관이 발효된 후에도 서비스를 계속 사용하는 경우, 귀하는 수정된 약관에 동의하는 것으로 간주됩니다. 변경된 약관에 동의하지 않는 경우, 서비스 사용을 중단해야 합니다.</p>
+                            
+                            <h3>8.3 이전 버전</h3>
+                            <p>약관의 이전 버전은 요청 시 제공될 수 있습니다. 이전 버전의 약관을 확인하시려면 joh66122@gmail.com로 문의하시기 바랍니다.</p>
+                            
+                            <div class="highlight-box">
+                                <p>정기적으로 이 약관을 확인하여 업데이트 사항을 숙지하는 것이 좋습니다. 최종 업데이트 날짜는 이 페이지 상단에 표시되어 있습니다.</p>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="dispute">
+                            <h2>9. 분쟁 해결</h2>
+                            <p>서비스 이용 중 발생하는 분쟁 해결에 관한 규정은 다음과 같습니다:</p>
+                            
+                            <h3>9.1 적용 법률</h3>
+                            <p>이 약관은 대한민국 법률에 따라 해석되고 규율됩니다. 국제사법 규정은 적용되지 않습니다.</p>
+                            
+                            <h3>9.2 분쟁 해결 절차</h3>
+                            <p>서비스와 관련하여 발생하는 모든 분쟁은 먼저 당사와의 직접 협상을 통해 해결하도록 노력해야 합니다. 분쟁이 발생한 날로부터 30일 이내에 해결되지 않는 경우, 대한민국 서울의 관할 법원에 제기될 수 있습니다.</p>
+                            
+                            <h3>9.3 집단 소송 포기</h3>
+                            <p>법률이 허용하는 최대 범위 내에서, 귀하와 당사는 서비스와 관련하여 발생하는 모든 분쟁을 집단 소송이나 대표 소송이 아닌 개별적으로 해결하는 것에 동의합니다.</p>
+                            
+                            <h3>9.4 시효 제한</h3>
+                            <p>서비스 사용으로 인해 발생하는 청구는 청구 원인이 발생한 후 1년 이내에 제기되어야 하며, 그 이후에는 영구적으로 금지됩니다.</p>
+                        </section>
+                    </div>
+                    
+                    <div class="content-wrapper">
+                        <section id="contact">
+                            <h2>10. 연락처 정보</h2>
+                            <p>이 약관이나 서비스와 관련하여 질문, 우려 사항 또는 피드백이 있는 경우, 다음 방법으로 당사에 연락할 수 있습니다:</p>
+                            
+                            <ul>
+                                <li>이메일: <a href="mailto:joh66122@gmail.com">joh66122@gmail.com</a></li>
+                                <li>웹사이트: <a href="http://custombot.kro.kr/support">http://custombot.kro.kr/support</a></li>
+                            </ul>
+                            
+                            <p>당사는 모든 문의사항에 최대한 빠르게 응답하기 위해 노력하고 있어요... 일반적으로 2일 이내에 답변을 드릴게요!</p>
+                            
+                            <div class="highlight-box">
+                                <p>이 약관에 동의함으로써, 귀하는 위에 명시된 모든 조건을 이해하고 준수할 것에 동의합니다. 커스텀봇 서비스를 즐겁게 이용해 주셔서 감사합니다!</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/40/40" alt="CustomBot Logo">
+                    <h2>CustomBot</h2>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="http://custombot.kro.kr">홈</a>
+                    <a href="http://custombot.kro.kr#features">기능</a>
+                    <a href="http://custombot.kro.kr#commands">명령어</a>
+                    <a href="http://invite.custombot.kro.kr">초대하기</a>
+                    <a href="http://support.custombot.kro.kr">고객 지원</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+            </div>
+        </div>
+    </footer>
+
+    <!-- 자바스크립트 -->
+    <script>
+        // 헤더 스크롤 효과
+        window.addEventListener('scroll', function() {
+            let header = document.querySelector('header');
+            
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // 모바일 메뉴
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // 스크롤 스파이
+        const sections = document.querySelectorAll('.content-wrapper section');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
