@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomBot - 고객 지원</title>
+    <style>
+        /* 폰트 설정 */
+        @font-face {
+            font-family: 'PyeongChangPeace-Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SBAggroB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        :root {
+            --primary: #5865F2;
+            --primary-dark: #4752c4;
+            --secondary: #EB459E;
+            --dark: #2C2F33;
+            --darker: #23272A;
+            --light: #FFFFFF;
+            --light-gray: #F6F6F6;
+            --success: #57F287;
+            --warning: #FEE75C;
+            --danger: #ED4245;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: 'SBAggroB', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'PyeongChangPeace-Bold', sans-serif;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--secondary);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* 헤더 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(35, 39, 42, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover img {
+            transform: rotate(10deg);
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--light);
+            font-weight: bold;
+            position: relative;
+            padding: 0.5rem 0;
+            align-items: center;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+        
+        .cta-btn:hover {
+            color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.6);
+        }
+        
+        /* 헤더 배너 */
+        .header-banner {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSI+PC9jaXJjbGU+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIj48L3JlY3Q+PC9zdmc+');
+            opacity: 0.5;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .header-content p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* 메인 섹션 */
+        .main-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .main-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(88, 101, 242, 0.05), transparent 30%),
+                        radial-gradient(circle at 90% 90%, rgba(235, 69, 158, 0.05), transparent 30%);
+            pointer-events: none;
+        }
+        
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        /* FAQ 섹션 */
+        .faq-section {
+            background-color: rgba(35, 39, 42, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .accordion {
+            list-style: none;
+        }
+        
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .accordion-button {
+            width: 100%;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            color: var(--light);
+            font-family: 'SBAggroB', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-button:focus {
+            outline: none;
+        }
+        
+        .accordion-button::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-button[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            padding: 0 20px 20px;
+            max-height: 1000px;
+        }
+        
+        /* 문의 양식 */
+        .contact-form {
+            background-color: rgba(35, 39, 42, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: 'SBAggroB', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.3);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .captcha-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .captcha-img {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .captcha-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .refresh-captcha {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-captcha:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: rotate(180deg);
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--light);
+            border: none;
+            border-radius: 8px;
+            font-family: 'SBAggroB', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.5);
+        }
+        
+        /* 연락처 정보 */
+        .contact-info {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-card {
+            background-color: rgba(35, 39, 42, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-color: rgba(88, 101, 242, 0.3);
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: var(--light);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .contact-card a {
+            color: var(--light);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card a:hover {
+            color: var(--secondary);
+        }
+        
+        /* 추가 지원 정보 */
+        .additional-support {
+            margin-top: 60px;
+            background-color: rgba(35, 39, 42, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .support-grid-small {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .support-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .support-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .support-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .support-item h3 i {
+            color: var(--primary);
+        }
+        
+        /* 푸터 */
+        footer {
+            background-color: var(--darker);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light);
+        }
+        
+        .footer-bottom {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* 응답 메시지 */
+        .response-message {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 8px;
+            background-color: var(--success);
+            color: var(--light);
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1100;
+            transition: top 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .response-message.show {
+            top: 100px;
+        }
+        
+        .response-message.error {
+            background-color: var(--danger);
+        }
+        
+        /* 로딩 애니메이션 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* 반응형 디자인 */
+        @media screen and (max-width: 992px) {
+            .support-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--darker);
+                width: 80%;
+                height: 100vh;
+                padding: 2rem;
+                z-index: 100;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                transition: right 0.5s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .burger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .burger.active div:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .burger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 576px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-container">
+            <a href="http://custombot.kro.kr" class="logo">
+                <h1>커스텀봇</h1>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="http://custombot.kro.kr#features">기능</a></li>
+                    <li><a href="http://custombot.kro.kr#commands">명령어</a></li>
+                    <li><a href="http://custombot.kro.kr#how-to-use">사용 방법</a></li>
+                    <li><a href="http://custombot.kro.kr/support">문의하기</a></li>
+                    <li><a href="http://custombot.kro.kr/invite" class="cta-btn">초대하기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 헤더 배너 -->
+    <section class="header-banner">
+        <div class="header-content">
+            <h1>고객 지원</h1>
+            <p>질문이 있으신가요? 커스텀봇 팀이 도와드릴게요!</p>
+        </div>
+    </section>
+
+    <!-- 메인 섹션 -->
+    <section class="main-section">
+        <div class="container">
+            <div class="support-grid">
+                <!-- FAQ 섹션 -->
+                <div class="faq-section">
+                    <h2 class="section-title">자주 묻는 질문</h2>
+                    <ul class="accordion">
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                커스텀봇은 어떤 봇인가요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>커스텀봇은 서버마다 다른 커스텀 명령어를 쉽게 만들 수 있는 디스코드 봇입니다. 일반 텍스트 응답, 역할 부여, 임베드 메시지, 조건부 명령어 등 다양한 종류의 명령어를 간편하게 생성하고 관리할 수 있습니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                커스텀봇을 사용하려면 어떤 권한이 필요한가요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>커스텀봇은 명령어를 만들기 위해 서버 관리자 권한이 필요하지만, 생성된 명령어는 모든 서버 멤버가 사용할 수 있습니다. 역할 명령어의 경우 봇에 '역할 관리' 권한이 필요합니다. 초대 링크에서 필요한 모든 권한을 자동으로 요청합니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                명령어는 몇 개까지 만들 수 있나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>서버당 만들 수 있는 명령어 수에 제한은 없습니다. 하지만 서버 부하를 고려하여 합리적인 수준으로 유지하는 것이 좋습니다. 일반적으로 서버당 몇백 개의 명령어까지 문제없이 사용할 수 있습니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                플레이스홀더란 무엇인가요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>플레이스홀더는 명령어 응답에 동적인 정보를 삽입할 수 있는 기능입니다. 예를 들어, <code>%useduser%</code>는 명령어를 사용한 유저를 멘션하고, <code>%server%</code>는 서버 이름을 표시합니다. CustomBot은 유저 정보, 서버 정보, 날짜/시간, 카운터 값 등 다양한 플레이스홀더를 지원합니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                명령어 쿨다운은 어떻게 설정하나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>명령어 쿨다운은 <code>/쿨다운설정</code> 명령어를 사용하여 설정할 수 있습니다. 명령어 이름과 쿨다운 시간(초 단위)을 지정하면 됩니다. 예: <code>/쿨다운설정 명령어:운세 쿨다운시간:60</code></p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                카운터 시스템은 어떻게 활용할 수 있나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>카운터 시스템은 유저별로 포인트, 경험치, 게임 스코어 등을 관리할 수 있는 기능입니다. <code>/카운터만들기</code>, <code>/카운터증가</code>, <code>/카운터감소</code>, <code>/카운터설정</code> 등의 명령어로 관리할 수 있으며, <code>%counter_이름%</code> 플레이스홀더를 사용하여 명령어 응답에 카운터 값을 표시할 수 있습니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                봇 데이터를 백업할 수 있나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>네, <code>/백업</code> 명령어를 사용하여 서버의 모든 명령어와 설정을 JSON 파일로 백업할 수 있습니다. 백업 파일을 보관해두면 나중에 <code>/복원</code> 명령어를 사용하여 데이터를 복원할 수 있습니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                타이머 기능은 어떻게 사용하나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p><code>/타이머설정</code> 명령어를 사용하여 특정 시간 후에 메시지를 보내는 타이머를 설정할 수 있습니다. 시간(초 단위, 최대 12시간), 메시지 내용, 보낼 채널을 지정하면 됩니다. 예: <code>/타이머설정 시간:3600 메시지:이벤트가 1시간 후에 시작됩니다! 채널:#공지사항</code></p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                명령어에 버튼이나 이미지를 추가할 수 있나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>네, 임베드 명령어에서 <code>/임베드편집</code> 명령어를 사용하여 이미지, 썸네일, 버튼 등을 추가할 수 있습니다. 편집 모드에서 '이미지 추가', '썸네일 추가', '버튼 관리' 옵션을 선택하면 됩니다.</p>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-button" aria-expanded="false">
+                                봇은 무료로 사용할 수 있나요?
+                            </button>
+                            <div class="accordion-content">
+                                <p>네, 커스텀봇은 완전 무료로 사용할 수 있습니다. 모든 기능을 제한 없이 이용할 수 있으며, 프리미엄 요금제나 숨겨진 비용이 없습니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 문의 양식 -->
+                <div class="contact-form">
+                    <h2 class="section-title">문의하기</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="discord_name" class="form-label">디스코드 이름</label>
+                            <input type="text" id="discord_name" class="form-control" placeholder="예: username#1234" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="email" id="email" class="form-control" placeholder="답변을 받을 이메일 주소" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">문의 제목</label>
+                            <input type="text" id="subject" class="form-control" placeholder="문의 내용을 간략히 요약해주세요" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">문의 내용</label>
+                            <textarea id="message" class="form-control" placeholder="문의 내용을 자세히 적어주세요. 오류 내용, 서버 ID 등을 포함하면 더 빠른 도움을 받을 수 있습니다." required></textarea>
+                        </div>
+                        
+                        <div class="captcha-container">
+                            <label class="form-label">보안 문자</label>
+                            <div class="captcha-img">
+                                <canvas id="captchaCanvas" class="captcha-canvas"></canvas>
+                                <button type="button" class="refresh-captcha" id="refreshCaptcha">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            <input type="text" id="captcha" class="form-control" placeholder="위에 표시된 문자를 입력하세요" required>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">문의 보내기</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- 연락처 정보 -->
+            <div class="contact-info">
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>이메일 문의</h3>
+                    <p>직접 이메일로 문의하고 싶으신가요?</p>
+                    <a href="mailto:joh66122@gmail.com">joh66122@gmail.com</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>버그 신고</h3>
+                    <p>버그를 발견하셨나요? 자세한 정보와 함께 신고해주세요.</p>
+                    <a href="#" onclick="document.getElementById('subject').value='버그 신고'; document.getElementById('subject').focus();">버그 신고하기</a>
+                </div>
+            </div>
+            
+            <!-- 추가 지원 정보 -->
+            <div class="additional-support">
+                <h2 class="section-title">추가 지원</h2>
+                <p>커스텀봇 사용 중 도움이 필요하신가요? 다양한 방법으로 지원 받으실 수 있어요</p>
+                
+                <div class="support-grid-small">
+                    <div class="support-item">
+                        <h3><i class="fas fa-book"></i> 명령어 가이드</h3>
+                        <p>커스텀봇의 모든 명령어와 사용법을 자세히 알아보세요.</p>
+                        <a href="http://custombot.kro.kr#commands">명령어 가이드 보기</a>
+                    </div>
+                    
+                    <div class="support-item">
+                        <h3><i class="fas fa-lightbulb"></i> 사용 팁</h3>
+                        <p>커스텀봇을 더 효율적으로 사용하는 팁과 트릭을 알아보세요!</p>
+                        <a href="http://custombot.kro.kr#how-to-use">사용 팁 보기</a>
+                    </div>
+                    
+                    <div class="support-item">
+                        <h3><i class="fas fa-question-circle"></i> 봇 내 도움말</h3>
+                        <p>디스코드 서버에서 <code>/도움말</code> 명령어를 사용하여 봇 내에서 바로 도움말을 확인하세요.</p>
+                    </div>
+                    
+                    <div class="support-item">
+                        <h3><i class="fas fa-code"></i> 플레이스홀더 목록</h3>
+                        <p>디스코드 서버에서 <code>/함수목록</code> 명령어를 사용하여 사용 가능한 모든 플레이스홀더를 확인해보세요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/40/40" alt="CustomBot Logo">
+                    <h2>CustomBot</h2>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="http://custombot.kro.kr">홈</a>
+                    <a href="http://custombot.kro.kr#features">기능</a>
+                    <a href="http://custombot.kro.kr#commands">명령어</a>
+                    <a href="http://custombot.kro.kr/invite">초대하기</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+            </div>
+        </div>
+    </footer>
+
+    <!-- 응답 메시지 -->
+    <div class="response-message" id="responseMessage">
+        <i class="fas fa-check-circle"></i>
+        <span>문의가 성공적으로 접수되었습니다!</span>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- 자바스크립트 -->
+    <script>
+        // 헤더 스크롤 효과
+        window.addEventListener('scroll', function() {
+            let header = document.querySelector('header');
+            
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // 모바일 메뉴
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // 아코디언 기능
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                
+                // 다른 모든 아코디언 닫기
+                accordionButtons.forEach(b => {
+                    b.setAttribute('aria-expanded', 'false');
+                    b.nextElementSibling.classList.remove('active');
+                });
+                
+                // 현재 아코디언 토글
+                button.setAttribute('aria-expanded', !isExpanded);
+                if (!isExpanded) {
+                    button.nextElementSibling.classList.add('active');
+                }
+            });
+        });
+        
+        // 캡챠 생성 함수
+        function generateCaptcha() {
+            const canvas = document.getElementById('captchaCanvas');
+            const ctx = canvas.getContext('2d');
+            const captchaText = generateRandomString(6);
+            
+            // 캔버스 크기 설정
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            // 캔버스 초기화
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 캡챠 텍스트 설정
+            ctx.font = 'bold 30px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // 캡챠 텍스트 회전 및 위치 조정
+            for (let i = 0; i < captchaText.length; i++) {
+                const char = captchaText.charAt(i);
+                const x = 40 + i * 40;
+                const y = canvas.height / 2 + Math.sin(i) * 10;
+                const rotation = (Math.random() - 0.5) * 0.4;
+                
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rotation);
+                ctx.fillText(char, 0, 0);
+                ctx.restore();
+            }
+            
+            // 방해 선 그리기
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i < 10; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.stroke();
+            }
+            
+            // 방해 점 그리기
+            for (let i = 0; i < 100; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 3;
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fillRect(x, y, size, size);
+            }
+            
+            // 캡챠 텍스트 저장
+            canvas.setAttribute('data-captcha', captchaText);
+        }
+        
+        // 랜덤 문자열 생성 함수
+        function generateRandomString(length) {
+            const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+            let result = '';
+            
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            
+            return result;
+        }
+        
+        // 캡챠 초기화
+        document.addEventListener('DOMContentLoaded', generateCaptcha);
+        
+        // 캡챠 새로고침 버튼
+        document.getElementById('refreshCaptcha').addEventListener('click', generateCaptcha);
+        
+        // 응답 메시지 표시 함수
+        function showResponseMessage(message, isError = false) {
+            const responseMessage = document.getElementById('responseMessage');
+            const messageText = responseMessage.querySelector('span');
+            const messageIcon = responseMessage.querySelector('i');
+            
+            messageText.textContent = message;
+            
+            if (isError) {
+                responseMessage.classList.add('error');
+                messageIcon.className = 'fas fa-times-circle';
+            } else {
+                responseMessage.classList.remove('error');
+                messageIcon.className = 'fas fa-check-circle';
+            }
+            
+            responseMessage.classList.add('show');
+            
+            setTimeout(() => {
+                responseMessage.classList.remove('show');
+            }, 5000);
+        }
+        
+        // 로딩 오버레이 표시/숨김 함수
+        function showLoading(show) {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            if (show) {
+                loadingOverlay.classList.add('show');
+            } else {
+                loadingOverlay.classList.remove('show');
+            }
+        }
+        
+        // 폼 제출 처리
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 캡챠 검증
+            const captchaInput = document.getElementById('captcha').value;
+            const captchaCanvas = document.getElementById('captchaCanvas');
+            const captchaText = captchaCanvas.getAttribute('data-captcha');
+            
+            if (captchaInput.toLowerCase() !== captchaText.toLowerCase()) {
+                showResponseMessage('보안 문자가 일치하지 않습니다. 다시 시도해주세요.', true);
+                generateCaptcha();
+                document.getElementById('captcha').value = '';
+                return;
+            }
+            
+            // 로딩 표시
+            showLoading(true);
+            
+            // 폼 데이터 수집
+            const formData = {
+                discord_name: document.getElementById('discord_name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // 서버로 데이터 전송하는 대신 시뮬레이션
+            setTimeout(() => {
+                showLoading(false);
+                showResponseMessage('문의가 성공적으로 접수되었습니다! 최대한 빨리 답변드리겠습니다.');
+                
+                // 폼 초기화
+                document.getElementById('contactForm').reset();
+                generateCaptcha();
+            }, 1500);
+        });
+        
+        // 윈도우 크기 조정 시 캡챠 다시 생성
+        window.addEventListener('resize', generateCaptcha);
+    </script>
+</body>
+</html>
