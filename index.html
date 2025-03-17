@@ -85,7 +85,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(35, 39, 42, 0.8);
+            background-color: rgba(35, 39, 42, 0.336);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -128,27 +128,30 @@
         }
         
         nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
         }
         
         nav a {
-            color: var(--light);
-            font-weight: bold;
-            position: relative;
-            padding: 0.5rem 0;
+        color: var(--light);
+        font-weight: bold;
+        position: relative;
+        padding: 0.5rem 0;
+        display: inline-flex;
+        align-items: center;
         }
-        
+
         nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
         }
         
         nav a:hover::after {
@@ -167,22 +170,36 @@
             margin: 5px;
             transition: all 0.3s ease;
         }
-        
+        nav a.cta-btn::after {
+        display: none; /* 밑줄 효과 완전히 제거 */
+        }
         .cta-btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--light);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: var(--light);
+        padding: 0.6rem 1.5rem;
+        border-radius: 30px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        nav a:not(.cta-btn)::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
         }
         
         .cta-btn:hover {
-            color: var(--light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.6);
+        color: var(--light);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(88, 101, 242, 0.6);
         }
         
         /* 히어로 섹션 */
@@ -958,7 +975,7 @@
             
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 80px;
                 right: -100%;
                 flex-direction: column;
                 background-color: var(--darker);
@@ -966,7 +983,7 @@
                 height: 100vh;
                 padding: 2rem;
                 z-index: 100;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.082);
                 transition: right 0.5s ease;
             }
             
@@ -1059,16 +1076,15 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo">
-                <img src="/icon.png" alt="CustomBot Logo">
-                <h1>CustomBot</h1>
+                <h1>커스텀봇</h1>
             </a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="#features">기능</a></li>
                     <li><a href="#commands">명령어</a></li>
                     <li><a href="#how-to-use">사용 방법</a></li>
-                    <li><a href="http://support.custombot.kro.kr">문의하기</a></li>
-                    <li><a href="http://invite.custombot.kro.kr" class="cta-btn">초대하기</a></li>
+                    <li><a href="http://custombot.kro.kr/support">문의하기</a></li>
+                    <li><a href="http://custombot.kro.kr/invite" class="cta-btn">초대하기</a></li>
                 </ul>
             </nav>
             <div class="burger">
@@ -1083,25 +1099,25 @@
     <section class="hero">
         <div class="hero-particles" id="particles-js"></div>
         <div class="hero-content">
-            <h1>당신만의 <span>커스텀 명령어</span>를 만들어보세요</h1>
-            <p>CustomBot은 서버마다 다른 커스텀 명령어를 쉽게 만들 수 있는 디스코드 봇입니다. 텍스트 응답, 역할 부여, 임베드 등 다양한 명령어를 관리자 권한 없이도 간편하게 설정하세요.</p>
-            <a href="http://invite.custombot.kro.kr" class="cta-btn hero-btn">지금 초대하기 <i class="fas fa-arrow-right"></i></a>
+            <h1>당신만의 <span>커스텀 명령어</span>를 만들어보세요!</h1>
+            <p>커스텀봇은, 서버마다 다른 커스텀 명령어를 코딩 없이 쉽게 만들 수 있는 디스코드 봇입니다. 텍스트 응답, 역할 부여, 임베드 등 다양한 명령어를 관리자 권한 없이도 간편하게 설정하세요!</p>
+            <a href="http://custombot.kro.kr/invite" class="cta-btn hero-btn">지금 초대하기 <i class="fas fa-arrow-right"></i></a>
             
             <div class="hero-cards">
                 <div class="hero-card">
                     <i class="fas fa-magic"></i>
                     <h3>간편 설정</h3>
-                    <p>복잡한 설정 없이 빠르게 명령어 생성</p>
+                    <p>복잡한 설정, 코딩 없이 빠르게 명령어를 생성할 수 있어요</p>
                 </div>
                 <div class="hero-card">
                     <i class="fas fa-users"></i>
                     <h3>서버별 설정</h3>
-                    <p>각 서버마다 독립적인 명령어 관리</p>
+                    <p>각 서버마다 독립적인 명령어를 관리할 수 있어요</p>
                 </div>
                 <div class="hero-card">
                     <i class="fas fa-chart-line"></i>
                     <h3>고급 기능</h3>
-                    <p>조건부, 랜덤 응답, 카운터 시스템</p>
+                    <p>조건부 랜덤 응답 카운터 등을 코딩없이 쉽게 써보세요</p>
                 </div>
             </div>
         </div>
@@ -1113,62 +1129,62 @@
         <div class="container">
             <div class="section-title">
                 <h2>다양한 기능</h2>
-                <p>CustomBot은 단순한 명령어 봇이 아닙니다. 다양한 기능으로 서버를 더욱 풍부하게 만들어보세요.</p>
+                <p>커스텀봇은 단순한 명령어 봇이 아니라 직접 만들어가는 봇이에요!</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="fas fa-comment-dots"></i>
                     <h3>텍스트 명령어</h3>
-                    <p>간단한 텍스트 응답 명령어부터 다양한 플레이스홀더를 활용한 동적 응답까지, 원하는 대로 설정할 수 있습니다.</p>
+                    <p>간단한 텍스트 응답 명령어부터 다양한 플레이스홀더를 활용한 동적 응답까지, 원하는 대로 설정할 수 있어요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-user-tag"></i>
                     <h3>역할 명령어</h3>
-                    <p>명령어 한 번으로 역할을 부여하거나 제거할 수 있습니다. 토글 방식과 일회성 방식 모두 지원합니다.</p>
+                    <p>명령어 한 번으로 역할을 부여하거나 제거할 수 있어요 토글 방식과 일회성 방식 모두 지원해요</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-palette"></i>
                     <h3>임베드 명령어</h3>
-                    <p>색상, 이미지, 필드를 포함한 풍부한 임베드 메시지를 손쉽게 만들 수 있습니다.</p>
+                    <p>색상, 이미지, 필드를 포함한 풍부한 임베드 메시지를 손쉽게 만들 수 있어요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-random"></i>
                     <h3>랜덤 응답</h3>
-                    <p>여러 응답 중 하나를 무작위로 선택하는 명령어로 재미있는 요소를 추가해보세요.</p>
+                    <p>여러 응답 중 하나를 무작위로 선택하는 명령어로 재미있는 요소를 추가해보세요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-code-branch"></i>
                     <h3>조건부 명령어</h3>
-                    <p>역할, 채널, 시간대, 요일, 카운터 값에 따라 다른 응답을 제공하는 고급 조건부 명령어를 만들 수 있습니다.</p>
+                    <p>역할, 채널, 시간대, 요일, 카운터 값에 따라 다른 응답을 제공하는 고급 조건부 명령어를 코딩 없이 만들 수 있어요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-calculator"></i>
                     <h3>카운터 시스템</h3>
-                    <p>유저별 카운터를 생성하고 관리할 수 있습니다. 포인트, 경험치 등 다양한 용도로 활용해보세요.</p>
+                    <p>유저별 카운터를 생성하고 관리할 수 있어요, 포인트, 경험치 등 다양한 용도로 활용해보세요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-hourglass-half"></i>
                     <h3>타이머 기능</h3>
-                    <p>지정된 시간 후에 메시지를 보내는 타이머를 설정할 수 있습니다.</p>
+                    <p>지정된 시간 후에 메시지를 보내는 타이머를 설정할 수 있어요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-database"></i>
                     <h3>서버 변수</h3>
-                    <p>서버 내에서 사용할 수 있는 변수를 저장하고 불러와 명령어에 활용할 수 있습니다.</p>
+                    <p>서버 내에서 사용할 수 있는 변수를 저장하고 불러와 명령어에 활용할 수 있어요!</p>
                 </div>
                 
                 <div class="feature-card">
                     <i class="fas fa-lock"></i>
                     <h3>명령어 권한</h3>
-                    <p>특정 역할만 사용할 수 있는 명령어를 설정하여 서버 관리를 효율적으로 할 수 있습니다.</p>
+                    <p>특정 역할만 사용할 수 있는 명령어를 설정하여 서버 관리를 효율적으로 할 수 있어요!</p>
                 </div>
             </div>
         </div>
@@ -1180,7 +1196,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>다양한 명령어</h2>
-                <p>CustomBot은 다양한 종류의 명령어를 제공합니다. 서버에 맞게 자유롭게 커스터마이징 해보세요.</p>
+                <p>커스텀봇은 다양한 종류의 명령어를 사용할 수 있어요. 서버에 맞게 자유롭게 커스터마이징 해보세요!</p>
             </div>
             
             <div class="commands-tabs">
@@ -1203,7 +1219,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>텍스트 응답 명령어를 생성합니다. 플레이스홀더를 사용하여 동적인 응답을 만들 수 있습니다.</p>
+                        <p>텍스트 응답 명령어를 만들어요. 플레이스홀더를 사용하여 동적인 응답을 만들 수 있어요</p>
                     </div>
                     <div class="command-example">
                         /일반만들기 명령어:인사 응답:안녕하세요, %useduser%님! %server% 서버에 오신 것을 환영합니다!
@@ -1221,7 +1237,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>서버에 등록된 명령어를 검색합니다. 특정 키워드로 검색하여 빠르게 명령어를 찾을 수 있습니다.</p>
+                        <p>서버에 등록된 명령어를 검색해요 특정 키워드로 검색하여 빠르게 명령어를 찾을 수 있어요!</p>
                     </div>
                     <div class="command-example">
                         /검색 검색어:인사
@@ -1239,7 +1255,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>서버에 등록된 모든 명령어 목록을 확인합니다. 종류별로 필터링하여 볼 수도 있습니다.</p>
+                        <p>서버에 등록된 모든 명령어 목록을 확인해요. 종류별로 필터링하여 볼 수도 있어요!</p>
                     </div>
                     <div class="command-example">
                         /목록 종류:모두
@@ -1259,7 +1275,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>역할 부여 명령어를 생성합니다. Toggle 모드에서는 역할을 추가/제거하고, Once 모드에서는 역할이 없을 때만 추가합니다.</p>
+                        <p>역할 부여 명령어를 만들어요. Toggle 모드에서는 역할을 추가/제거하고, Once 모드에서는 역할이 없을 때만 추가해요!</p>
                     </div>
                     <div class="command-example">
                         /역할만들기 명령어:게임 역할:@게이머 방식:Toggle
@@ -1277,7 +1293,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>명령어 사용 권한을 특정 역할로 제한합니다. 서버 관리를 더욱 효율적으로 할 수 있습니다.</p>
+                        <p>명령어 사용 권한을 특정 역할로 제한할 수 있어요! 서버 관리를 더욱 효율적으로 할 수 있어요.</p>
                     </div>
                     <div class="command-example">
                         /권한설정 명령어:게임 역할:@모더레이터
@@ -1297,10 +1313,10 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>임베드 출력 명령어를 생성합니다. 제목, 설명, 색상 등을 설정할 수 있습니다.</p>
+                        <p>임베드 출력 명령어를 생성합니다. 제목, 설명, 색상 등을 설정할 수 있어요!</p>
                     </div>
                     <div class="command-example">
-                        /임베드만들기 명령어:공지 제목:서버 공지사항 부제목:중요한 내용을 확인해주세요.
+                        /임베드만들기 명령어:공지 제목:서버 공지사항 부제목:중요한 내용을 확인해주세요!
                     </div>
                 </div>
                 
@@ -1315,7 +1331,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>임베드 명령어를 상세하게 편집합니다. 필드 추가, 색상 변경, 이미지 추가 등 다양한 편집이 가능합니다.</p>
+                        <p>임베드 명령어를 상세하게 편집할 수 있어요. 필드 추가, 색상 변경, 이미지 추가 등 다양한 편집이 가능해요!</p>
                     </div>
                     <div class="command-example">
                         /임베드편집 명령어:공지 편집모드:필드 추가
@@ -1335,7 +1351,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>유저별 카운터를 생성합니다. 포인트, 경험치 등 다양한 용도로 활용할 수 있습니다.</p>
+                        <p>유저별 카운터를 만들어요, 포인트, 경험치 등 다양한 용도로 활용할 수 있어요!</p>
                     </div>
                     <div class="command-example">
                         /카운터만들기 카운터이름:포인트 초기값:100
@@ -1353,7 +1369,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>유저의 카운터 값을 증가시킵니다. 특정 유저의 카운터를 관리자가 증가시킬 수도 있습니다.</p>
+                        <p>유저의 카운터 값을 증가시켜요. 특정 유저의 카운터를 관리자가 증가시킬 수도 있어요!</p>
                     </div>
                     <div class="command-example">
                         /카운터증가 카운터이름:포인트 증가량:50 대상유저:@유저이름
@@ -1371,7 +1387,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>유저의 카운터 값을 확인합니다. 특정 카운터만 확인하거나 모든 카운터를 확인할 수 있습니다.</p>
+                        <p>유저의 카운터 값을 확인해요 특정 카운터만 확인하거나 모든 카운터를 확인할 수 있어요!</p>
                     </div>
                     <div class="command-example">
                         /카운터확인 카운터이름:포인트 대상유저:@유저이름
@@ -1391,7 +1407,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>조건에 따라 다른 응답을 제공하는 조건부 명령어를 생성합니다. 다양한 조건 유형이 지원됩니다.</p>
+                        <p>조건에 따라 다른 응답을 제공하는 조건부 명령어를 생성해요 다양한 조건 유형을 사용할 수 있어요!</p>
                     </div>
                     <div class="command-example">
                         /조건명령만들기 명령어:환영 조건유형:역할 보유 조건값:@VIP 성공응답:VIP 회원님 환영합니다! 실패응답:일반 회원님 환영합니다!
@@ -1409,12 +1425,12 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>여러 응답 중 하나를 무작위로 선택하는 명령어를 생성합니다. 여러 줄로 구분하여 응답을 입력합니다.</p>
+                        <p>여러 응답 중 하나를 무작위로 선택하는 명령어를 생성해요 여러 줄로 구분하여 응답을 입력해요</p>
                     </div>
                     <div class="command-example">
-                        /랜덤명령만들기 명령어:운세 응답목록:오늘은 행운이 가득한 날입니다.
-오늘은 조심해야 할 날입니다.
-오늘은 평범한 하루가 될 것 같습니다.
+                        /랜덤명령만들기 명령어:운세 응답목록:오늘은 행운이 가득한 날이에요!!
+오늘은 조심해야 할 날입니다..
+오늘은 평범한 하루가 될 것 같아요!
                     </div>
                 </div>
                 
@@ -1429,7 +1445,7 @@
                         </div>
                     </div>
                     <div class="command-description">
-                        <p>명령어 사용에 쿨다운을 설정합니다. 명령어 남용을 방지하고 서버를 효율적으로 관리할 수 있습니다.</p>
+                        <p>명령어 사용에 쿨다운을 설정할수 있어요 명령어 남용을 방지하고 서버를 효율적으로 관리할 수 있어요</p>
                     </div>
                     <div class="command-example">
                         /쿨다운설정 명령어:운세 쿨다운시간:60
@@ -1445,7 +1461,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>사용 방법</h2>
-                <p>CustomBot은 누구나 쉽게 사용할 수 있습니다. 따라하기만 하면 금방 나만의 봇을 만들 수 있어요!</p>
+                <p>커스텀봇은 누구나 쉽게 코딩 없이 사용할 수 있습니다. 따라하기만 하면 금방 나만의 봇을 만들 수 있어요!</p>
             </div>
             
             <div class="steps">
@@ -1453,7 +1469,7 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>봇 초대하기</h3>
-                        <p>CustomBot을 디스코드 서버에 초대하세요. 초대 버튼을 클릭하면 간단하게 초대할 수 있습니다.</p>
+                        <p>커스텀봇을 디스코드 서버에 초대하세요. 초대 버튼을 클릭하면 간단하게 초대할 수 있어요!</p>
                         <div class="step-image">
                             <img src="/api/placeholder/800/400" alt="봇 초대하기">
                         </div>
@@ -1464,7 +1480,7 @@
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>기본 설정하기</h3>
-                        <p>서버에 맞게 기본 설정을 변경해보세요. 명령어 접두사를 변경하거나 권한을 설정할 수 있습니다.</p>
+                        <p>서버에 맞게 기본 설정을 변경해보세요. 명령어 접두사를 변경하거나 권한을 설정할 수 있어요!</p>
                         <div class="step-image">
                             <img src="/api/placeholder/800/400" alt="기본 설정하기">
                         </div>
@@ -1475,7 +1491,7 @@
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>명령어 만들기</h3>
-                        <p>다양한 종류의 명령어를 만들어보세요. 일반 텍스트 응답, 역할 부여, 임베드 등 원하는 대로 설정할 수 있습니다.</p>
+                        <p>다양한 종류의 명령어를 만들어보세요. 일반 텍스트 응답, 역할 부여, 임베드 등 원하는 대로 설정할 수 있어요!</p>
                         <div class="step-image">
                             <img src="/api/placeholder/800/400" alt="명령어 만들기">
                         </div>
@@ -1486,7 +1502,7 @@
                     <div class="step-number">4</div>
                     <div class="step-content">
                         <h3>고급 기능 활용하기</h3>
-                        <p>카운터, 타이머, 조건부 명령어 등 고급 기능을 활용하여 더 풍부한 서버 경험을 만들어보세요.</p>
+                        <p>카운터, 타이머, 조건부 명령어 등 고급 기능을 활용하여 더 풍부한 서버 경험을 만들어보세요!</p>
                         <div class="step-image">
                             <img src="/api/placeholder/800/400" alt="고급 기능 활용하기">
                         </div>
@@ -1512,32 +1528,32 @@
         <div class="stats-bg"></div>
         <div class="container">
             <div class="section-title">
-                <h2>CustomBot 통계</h2>
-                <p>많은 서버에서 CustomBot을 사용하고 있습니다. 지금 바로 시작해보세요!</p>
+                <h2>커스텀봇 통계</h2>
+                <p>커스텀봇을 사용하고있는 서버를 찾아보세요!</p>
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <i class="fas fa-server"></i>
-                    <div class="stat-counter" data-target="1500">0</div>
+                    <div class="stat-counter" data-target="6">0</div>
                     <h3>서버 수</h3>
                 </div>
                 
                 <div class="stat-card">
                     <i class="fas fa-users"></i>
-                    <div class="stat-counter" data-target="500000">0</div>
+                    <div class="stat-counter" data-target="215">0</div>
                     <h3>사용자 수</h3>
                 </div>
                 
                 <div class="stat-card">
                     <i class="fas fa-terminal"></i>
-                    <div class="stat-counter" data-target="50000">0</div>
+                    <div class="stat-counter" data-target="52">0</div>
                     <h3>생성된 명령어</h3>
                 </div>
                 
                 <div class="stat-card">
                     <i class="fas fa-star"></i>
-                    <div class="stat-counter" data-target="500000">0</div>
+                    <div class="stat-counter" data-target="291">0</div>
                     <h3>명령어 실행</h3>
                 </div>
             </div>
@@ -1550,13 +1566,13 @@
         <div class="container">
             <div class="cta-content">
                 <h2 class="floating">지금 바로 시작하세요!</h2>
-                <p>CustomBot과 함께 서버를 더욱 풍부하게 만들어보세요. 관리자도 사용자도 모두 편리하게 사용할 수 있습니다.</p>
+                <p>커스텀봇과 함께 코딩없이 쉽게 서버를 풍부하게 만들어보세요 관리자도 사용자도 모두 편리하게 사용할 수 있어요!</p>
                 <div class="cta-buttons">
-                    <a href="http://invite.custombot.kro.kr" class="cta-btn-primary">
+                    <a href="http://custombot.kro.kr/invite" class="cta-btn-primary">
                         <i class="fas fa-plus-circle"></i>
                         디스코드에 추가하기
                     </a>
-                    <a href="http://support.custombot.kro.kr" class="cta-btn-secondary">
+                    <a href="http://custombot.kro.kr/support" class="cta-btn-secondary">
                         <i class="fas fa-question-circle"></i>
                         문의하기
                     </a>
@@ -1572,8 +1588,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <img src="/api/placeholder/40/40" alt="CustomBot Logo">
-                        <h2>CustomBot</h2>
+                        <h2>커스텀봇</h2>
                     </div>
                     <p>CustomBot은 서버마다 다른 커스텀 명령어를 쉽게 만들 수 있는 디스코드 봇입니다.</p>
                     <div class="social-links">
@@ -1590,32 +1605,30 @@
                         <li><a href="#features"><i class="fas fa-star"></i> 기능</a></li>
                         <li><a href="#commands"><i class="fas fa-terminal"></i> 명령어</a></li>
                         <li><a href="#how-to-use"><i class="fas fa-question-circle"></i> 사용 방법</a></li>
-                        <li><a href="http://invite.custombot.kro.kr"><i class="fas fa-plus-circle"></i> 초대하기</a></li>
+                        <li><a href="http://custombot.kro.kr/invite"><i class="fas fa-plus-circle"></i> 초대하기</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h3>지원</h3>
                     <ul class="footer-links">
-                        <li><a href="http://support.custombot.kro.kr"><i class="fas fa-headset"></i> 고객 지원</a></li>
-                        <li><a href="http://support.custombot.kro.kr"><i class="fas fa-question-circle"></i> 자주 묻는 질문</a></li>
-                        <li><a href="http://support.custombot.kro.kr"><i class="fas fa-bug"></i> 버그 신고</a></li>
-                        <li><a href="#"><i class="fas fa-lightbulb"></i> 기능 제안</a></li>
+                        <li><a href="http://custombot.kro.kr/support"><i class="fas fa-headset"></i> 고객 지원</a></li>
+                        <li><a href="http://custombot.kro.kr/support"><i class="fas fa-question-circle"></i> 자주 묻는 질문</a></li>
+                        <li><a href="http://custombot.kro.kr/support"><i class="fas fa-bug"></i> 버그 신고</a></li>
+                        <li><a href="http://custombot.kro.kr/support"><i class="fas fa-lightbulb"></i> 기능 제안</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h3>법적 정보</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-file-alt"></i> 이용 약관</a></li>
-                        <li><a href="#"><i class="fas fa-shield-alt"></i> 개인정보 처리방침</a></li>
-                        <li><a href="#"><i class="fas fa-cookie"></i> 쿠키 정책</a></li>
+                        <li><a href="http://custombot.kro.kr/tos"><i class="fas fa-file-alt"></i> 이용 약관</a></li>
+                        <li><a href="http://custombot.kro.kr/privacy-policy"><i class="fas fa-shield-alt"></i> 개인정보 처리방침</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 CustomBot. All rights reserved.</p>
             </div>
         </div>
     </footer>
